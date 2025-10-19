@@ -1,0 +1,56 @@
+name: nawy_search_app
+description: "A new Flutter project."
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.9.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+
+  # HTTP client for API calls
+  dio: ^5.4.0
+
+  # State management with BLoC
+  flutter_bloc: ^8.1.3
+  bloc: ^8.1.2
+  equatable: ^2.0.5
+
+  # Local storage for favorites
+  shared_preferences: ^2.2.2
+
+  # JSON serialization
+  json_annotation: ^4.9.0
+
+  # SVG support
+  flutter_svg: ^2.0.9
+
+  # Logging
+  logger: ^2.0.2+1
+
+  # Pretty Dio Logger
+  pretty_dio_logger: ^1.3.1
+  cached_network_image: ^3.4.1
+  intl: ^0.20.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^5.0.0
+  analyzer: ^6.4.1
+
+  # JSON code generation
+  json_serializable: ^6.7.1
+  build_runner: ^2.4.7
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/icons/

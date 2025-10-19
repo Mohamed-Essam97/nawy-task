@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nawy_search_app/core/theme/app_theme.dart';
 import 'package:nawy_search_app/core/utils/number_formatter.dart';
 import 'package:nawy_search_app/data/models/property_model.dart';
+import 'package:nawy_search_app/presentation/cubits/search_cubit.dart';
+import 'package:nawy_search_app/presentation/cubits/search_state.dart';
 import 'package:nawy_search_app/presentation/widgets/cached_image.dart';
 
 class PropertyCard extends StatelessWidget {
   final PropertyModel property;
-  final bool isFavorite;
-  final VoidCallback onFavoritePressed;
-
-  const PropertyCard({
-    super.key,
-    required this.property,
-    required this.isFavorite,
-    required this.onFavoritePressed,
-  });
+  const PropertyCard({super.key, required this.property});
 
   @override
   Widget build(BuildContext context) {
@@ -51,16 +46,25 @@ class PropertyCard extends StatelessWidget {
     return Positioned(
       top: AppTheme.spacingS,
       right: AppTheme.spacingS,
-      child: CircleAvatar(
-        backgroundColor: AppTheme.background,
-        child: IconButton(
-          icon: Icon(
-            isFavorite ? Icons.favorite : Icons.favorite_border,
-            color: isFavorite ? Colors.red : AppTheme.textSecondary,
-            size: AppTheme.iconSizeM,
-          ),
-          onPressed: onFavoritePressed,
-        ),
+      child: BlocBuilder<SearchCubit, SearchState>(
+        buildWhen: (previous, current) =>
+            previous.favoritePropertyIds != current.favoritePropertyIds,
+        builder: (context, state) {
+          final isFavorite = state.favoritePropertyIds.contains(property.id);
+          return CircleAvatar(
+            backgroundColor: AppTheme.background,
+            child: IconButton(
+              icon: Icon(
+                isFavorite ? Icons.favorite : Icons.favorite_border,
+                color: isFavorite ? Colors.red : AppTheme.textSecondary,
+                size: AppTheme.iconSizeM,
+              ),
+              onPressed: () {
+                context.read<SearchCubit>().toggleFavorite(property.id);
+              },
+            ),
+          );
+        },
       ),
     );
   }

@@ -81,13 +81,7 @@ class _PropertiesTab extends StatelessWidget {
                 itemCount: state.searchResults.length,
                 itemBuilder: (context, index) {
                   final property = state.searchResults[index];
-                  return PropertyCard(
-                    property: property,
-                    isFavorite: state.favoritePropertyIds.contains(property.id),
-                    onFavoritePressed: () {
-                      context.read<SearchCubit>().toggleFavorite(property.id);
-                    },
-                  );
+                  return PropertyCard(property: property);
                 },
               );
             }
@@ -98,13 +92,7 @@ class _PropertiesTab extends StatelessWidget {
               itemCount: state.searchResults.length,
               itemBuilder: (context, index) {
                 final property = state.searchResults[index];
-                return PropertyCard(
-                  property: property,
-                  isFavorite: state.favoritePropertyIds.contains(property.id),
-                  onFavoritePressed: () {
-                    context.read<SearchCubit>().toggleFavorite(property.id);
-                  },
-                );
+                return PropertyCard(property: property);
               },
             );
           },

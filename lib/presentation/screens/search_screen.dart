@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nawy_search_app/core/theme/app_theme.dart';
 import 'package:nawy_search_app/data/models/area_model.dart';
 import 'package:nawy_search_app/data/models/compound_model.dart';
 import 'package:nawy_search_app/presentation/cubits/search_cubit.dart';
@@ -44,7 +45,7 @@ class SearchScreen extends StatelessWidget {
           final maxBedrooms = state.filterOptions!.maxBedrooms.toDouble();
 
           return SingleChildScrollView(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(AppTheme.spacingM),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -103,8 +104,30 @@ class SearchScreen extends StatelessWidget {
                                   )
                                 : null,
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8.0),
+                              borderRadius: BorderRadius.circular(
+                                AppTheme.radiusM,
+                              ),
+                              borderSide: const BorderSide(
+                                color: AppTheme.divider,
+                              ),
                             ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(
+                                AppTheme.radiusM,
+                              ),
+                              borderSide: const BorderSide(
+                                color: AppTheme.divider,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(
+                                AppTheme.radiusM,
+                              ),
+                              borderSide: const BorderSide(
+                                color: AppTheme.primaryBlue,
+                              ),
+                            ),
+                            hintStyle: AppTheme.bodyMedium,
                           ),
                           onSubmitted: (String value) {
                             if (value.isNotEmpty) {
@@ -135,7 +158,7 @@ class SearchScreen extends StatelessWidget {
                         );
                       },
                 ),
-                const SizedBox(height: 16.0),
+                const SizedBox(height: AppTheme.spacingM),
 
                 // Price range slider
                 CustomRangeSlider(
@@ -158,7 +181,7 @@ class SearchScreen extends StatelessWidget {
                     );
                   },
                 ),
-                const SizedBox(height: 16.0),
+                const SizedBox(height: AppTheme.spacingM),
 
                 // Number of rooms
                 CustomRangeSlider(
@@ -174,7 +197,7 @@ class SearchScreen extends StatelessWidget {
                     );
                   },
                 ),
-                const SizedBox(height: 24.0),
+                const SizedBox(height: AppTheme.spacingXL),
 
                 // Search button
                 BlocListener<SearchCubit, SearchState>(
@@ -204,33 +227,34 @@ class SearchScreen extends StatelessWidget {
                                 context.read<SearchCubit>().searchProperties();
                               },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Theme.of(
-                            context,
-                          ).colorScheme.primary,
+                          backgroundColor: AppTheme.primaryBlue,
+                          foregroundColor: AppTheme.background,
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 32.0,
-                            vertical: 16.0,
+                            horizontal: AppTheme.spacingXL,
+                            vertical: AppTheme.spacingM,
                           ),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
+                            borderRadius: BorderRadius.circular(
+                              AppTheme.radiusM,
+                            ),
                           ),
+                          elevation: AppTheme.cardElevation,
                         ),
                         child: state.status == SearchStatus.loading
                             ? const SizedBox(
-                                height: 20,
-                                width: 20,
+                                height: AppTheme.iconSizeM,
+                                width: AppTheme.iconSizeM,
                                 child: CircularProgressIndicator(
                                   strokeWidth: 2,
                                   valueColor: AlwaysStoppedAnimation<Color>(
-                                    Colors.white,
+                                    AppTheme.background,
                                   ),
                                 ),
                               )
-                            : const Text(
+                            : Text(
                                 'Show Results',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
+                                style: AppTheme.bodyLarge.copyWith(
+                                  color: AppTheme.background,
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),

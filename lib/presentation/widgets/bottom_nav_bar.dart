@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nawy_search_app/core/theme/app_theme.dart';
 
 class BottomNavBar extends StatelessWidget {
   final int currentIndex;
@@ -14,12 +15,12 @@ class BottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppTheme.background,
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
+            color: AppTheme.divider.withOpacity(0.2),
             spreadRadius: 1,
-            blurRadius: 10,
+            blurRadius: AppTheme.radiusM,
             offset: const Offset(0, -1),
           ),
         ],
@@ -28,21 +29,46 @@ class BottomNavBar extends StatelessWidget {
         currentIndex: currentIndex,
         onTap: onTap,
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.white,
-        selectedItemColor: Theme.of(context).colorScheme.primary,
-        unselectedItemColor: Colors.grey,
-        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
+        backgroundColor: AppTheme.background,
+        selectedItemColor: AppTheme.primaryBlue,
+        unselectedItemColor: AppTheme.textSecondary,
+        selectedLabelStyle: AppTheme.bodyMedium.copyWith(
+          fontWeight: FontWeight.w600,
+          color: AppTheme.primaryBlue,
+        ),
+        unselectedLabelStyle: AppTheme.bodyMedium.copyWith(
+          color: AppTheme.textSecondary,
+        ),
+        selectedIconTheme: const IconThemeData(
+          size: AppTheme.iconSizeM,
+          color: AppTheme.primaryBlue,
+        ),
+        unselectedIconTheme: const IconThemeData(
+          size: AppTheme.iconSizeM,
+          color: AppTheme.textSecondary,
+        ),
+        elevation: 0,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            activeIcon: Icon(Icons.search),
+            label: 'Search',
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.notifications_outlined),
+            activeIcon: Icon(Icons.notifications),
             label: 'Updates',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite_outline),
+            activeIcon: Icon(Icons.favorite),
             label: 'Favorites',
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.more_horiz), label: 'More'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.more_horiz),
+            activeIcon: Icon(Icons.more_horiz),
+            label: 'More',
+          ),
         ],
       ),
     );

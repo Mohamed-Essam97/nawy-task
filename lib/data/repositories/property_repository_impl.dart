@@ -3,8 +3,7 @@ import 'package:nawy_search_app/core/services/preferences_service.dart';
 import 'package:nawy_search_app/data/models/area_model.dart';
 import 'package:nawy_search_app/data/models/compound_model.dart';
 import 'package:nawy_search_app/data/models/filter_options_model.dart';
-import 'package:nawy_search_app/data/models/property_model.dart'
-    hide CompoundModel;
+import 'package:nawy_search_app/data/models/property_model.dart';
 import 'package:nawy_search_app/domain/repositories/property_repository.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
@@ -110,14 +109,17 @@ class PropertyRepositoryImpl implements PropertyRepository {
   @override
   Future<void> toggleFavoriteProperty(int propertyId) async {
     final favorites = await getFavoritePropertyIds();
-    if (favorites.contains(propertyId)) {
-      favorites.remove(propertyId);
+    final List<int> updatedFavorites = List.from(favorites);
+
+    if (updatedFavorites.contains(propertyId)) {
+      updatedFavorites.removeWhere((id) => id == propertyId);
     } else {
-      favorites.add(propertyId);
+      updatedFavorites.add(propertyId);
     }
+
     await PreferencesService.setStringList(
       _favoritesKey,
-      favorites.map((id) => id.toString()).toList(),
+      updatedFavorites.map((id) => id.toString()).toList(),
     );
   }
 }

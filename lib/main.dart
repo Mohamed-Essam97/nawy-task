@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nawy_search_app/core/services/preferences_service.dart';
 import 'package:nawy_search_app/data/repositories/property_repository_impl.dart';
 import 'package:nawy_search_app/presentation/cubits/search_cubit.dart';
 import 'package:nawy_search_app/presentation/screens/favorites_screen.dart';
@@ -11,6 +12,9 @@ Future<void> main() async {
   try {
     // Ensure Flutter bindings and platform channels are initialized
     WidgetsFlutterBinding.ensureInitialized();
+
+    // Initialize SharedPreferences
+    await PreferencesService.init();
 
     // Set preferred orientations
     SystemChrome.setPreferredOrientations([
@@ -41,7 +45,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Nawy Search',
+      title: 'Nawy Task',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
